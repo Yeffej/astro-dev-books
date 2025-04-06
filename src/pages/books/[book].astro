@@ -3,6 +3,7 @@ import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
+import { BASE } from "../../constants";
 
 export const getStaticPaths = (async () => {
     const books = await getCollection('books');
@@ -22,17 +23,22 @@ const { Content } = await render(entry);
 <Layout title={`${title} - Dev Books`}>
     <main class="container flex justify-center">
         <figure class="mr-6 flex-1">
-            <a href="/" class="w-[150px] block my-4 p-2 text-2xl text-center font-semibold text-white transition duration-300 shadow-current hover:shadow-lg active:scale-90 rounded-md cursor-pointer">
+            <a href={`${BASE}/`} class="w-[150px] block my-4 p-2 text-2xl text-center font-semibold text-white transition duration-300 shadow-current hover:shadow-lg active:scale-90 rounded-md cursor-pointer">
                 ← Volver
             </a>
-            <img class="w-full" transition:name={`${entry.id}-img`}  src={'/' + img} alt="book front-page">
+            <img 
+                class="w-full" 
+                transition:name={`${entry.id}-img`} 
+                src={`${BASE}/${img}`} 
+                alt="book front-page"
+            />
             <a 
                 class="w-full block my-4 mx-auto p-2 bg-(--actionColor) text-center text-xl text-[#444] font-bold rounded-sm transition duration-200 shadow-(color:--actionColor) active:scale-90 hover:-shadow-sm hover:shadow-lg  hover:text-yellow-500" 
                 href={buy}
                 rel="noopener noreferrer"
                 target="_blank"
             >
-                Comprar Libro <img class="w-[20px] inline" src="/amazon-logo.svg" alt="AmazonLogo">
+                Comprar Libro <img class="w-[20px] inline" src={`${BASE}/amazon-logo.svg`} alt="AmazonLogo">
             </a>
         </figure>
         <article class="flex-2 prose lg:prose-xl dark:prose-invert">

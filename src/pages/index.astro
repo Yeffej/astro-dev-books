@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { BASE } from '../constants';
 
 const books = await getCollection('books');
 ---
@@ -15,9 +16,9 @@ const books = await getCollection('books');
 		{ books.map(({ id, data }) => (
 			<article class="w-full md:w-2/5 my-4 mx-2 flex flex-wrap justify-center">
 				<a class="max-w-[200px] min-w-[150px] mr-2 mb-2 text-center transition duration-200 hover:scale-110 hover:grayscale-100"
-				   href={`/books/${id}`}
+				   href={`${BASE}/books/${id}`}
 				>
-					<img src={data.img} transition:name={`${id}-img`}  alt="book front-page">
+					<img src={`${BASE}/${data.img}`} transition:name={`${id}-img`}  alt="book front-page">
 				</a>
 				<div class="min-w-[220px] text-center flex-1">
 					<h4 class="text-xl mb-2">{data.title}</h4>
