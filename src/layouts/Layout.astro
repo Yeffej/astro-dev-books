@@ -1,3 +1,14 @@
+---
+import './src/styles/global.css';
+
+interface Props {
+	title: string
+}
+
+const { title }: Props = Astro.props;
+import { ClientRouter } from 'astro:transitions';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +16,35 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<ClientRouter />
+		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<div class="p-10">
+			<slot />
+		</div>
 	</body>
 </html>
 
-<style>
+<style is:global>
+	:root {
+		--fontColor: #caf0f8;
+		--primaryColor: #000814;
+		--secondColor: #023e8a;
+		--actionColor: #ffd60a;
+	}
 	html,
 	body {
-		margin: 0;
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
+		background-color: var(--primaryColor);
+		color: var(--fontColor);
+	}
+
+	body {
+		@apply grid place-content-center;
+	}
+	body > div {
+		@apply container;
 	}
 </style>
